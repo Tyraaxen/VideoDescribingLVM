@@ -13,17 +13,24 @@ load_dotenv()
 
 client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
-video = cv2.VideoCapture("C:/Users/tyra_/MasterThesis/VideoDescribingLVM/file_example.mp4")
+video = cv2.VideoCapture("/home/taxen/Master Thesis/VideoDescribingLVM/tyst_minut.mp4")
 
 def extract_frames(video_path, fps=1):
     #Extract frames and make into base64 format
+    frame_rate = int(video_path.get(cv2.CAP_PROP_FPS))
+    frame_interval = frame_rate // fps  # Antal frames mellan varje ex
+    success, frame = video.read()
+    frame_count = 0
     base64Frames = []
-    while video.isOpened():
+
+    while success:
+        if frame_count % frame_interval == 0:
+            #if not success:
+                #break
+            _, buffer = cv2.imencode(".jpg", frame)
+            base64Frames.append(base64.b64encode(buffer).decode("utf-8"))
         success, frame = video.read()
-        if not success:
-            break
-        _, buffer = cv2.imencode(".jpg", frame)
-        base64Frames.append(base64.b64encode(buffer).decode("utf-8"))
+        frame_count += 1
 
     video.release()
     print(len(base64Frames), "frames read.")
@@ -35,8 +42,8 @@ PROMPT_MESSAGES = [
     {
         "role": "user",
         "content": [
-            "These are frames from a video that I want to upload. Generate a description that I can upload along with the video.",
-            *map(lambda x: {"image": x, "resize": 768}, Frames[0::50]),
+            "These are frames from a video. What is happening in the video? Is these any part of the video that is not so interesting?",
+            *map(lambda x: {"image": x, "resize": 768}, Frames),
         ],
     },
 ]

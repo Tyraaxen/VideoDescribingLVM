@@ -3,3 +3,9 @@
 
 #ignore all the frame
 Frames/
+
+#Ignore Charades folder
+Charades/
+
+#Ignore charades video foler
+Charades_v1_480/

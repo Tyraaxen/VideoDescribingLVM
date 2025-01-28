@@ -13,9 +13,9 @@ load_dotenv()
 
 client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
-video = cv2.VideoCapture("/home/taxen/Master Thesis/VideoDescribingLVM/tyst_minut.mp4")
+video = cv2.VideoCapture("/home/taxen/Desktop/MasterThesis/VideoDescribingLVM/Videos/YSKX3.mp4")
 
-def extract_frames(video_path, fps=1):
+def extract_frames(video_path, fps=3):
     #Extract frames and make into base64 format
     frame_rate = int(video_path.get(cv2.CAP_PROP_FPS))
     frame_interval = frame_rate // fps  # Antal frames mellan varje ex
@@ -38,18 +38,44 @@ def extract_frames(video_path, fps=1):
 
 Frames = extract_frames(video)
 
-PROMPT_MESSAGES = [
-    {
-        "role": "user",
-        "content": [
-            "These are frames from a video. What is happening in the video? Is these any part of the video that is not so interesting?",
-            *map(lambda x: {"image": x, "resize": 768}, Frames),
-        ],
-    },
-]
+PROMPT_MESSAGES = """This is a semicolon-separated list of descriptions by annotators watching a video:
+            c077 12.10 18.00;c079 11.80 17.30;c080 13.00 18.00;c076 11.80 17.50;c075 5.40 14.10
+
+            the id's mean:
+            c075 Tidying up a blanket/s
+            c076 Holding a pillow
+            c077 Putting a pillow somewhere
+            c079 Taking a pillow from somewhere
+            c080 Throwing a pillow somewhere 
+            
+            Write a multi-choice question from this in the format: 
+            which action happens between timestamp 1 and timestamp 2?
+            A) action 1
+            B) action 2
+            C) action 4
+            etc..
+
+            The timestamps should be one of the timestamps from the annotated video and the alternatives should be the actions in the video.
+            Also include the right answer.
+
+            """
+
+PROMPT_MESSAGE_2 =  ["""**Question:**
+            Which action happens between timestamp 11.80 and timestamp 17.30?
+
+            A) Tidying up a blanket/s  
+            B) Holding a pillow  
+            C) Putting a pillow somewhere  
+            D) Taking a pillow from somewhere  
+            E) Throwing a pillow somewhere  """
+            , *map(lambda x: {"image": x, "resize": 768}, Frames),]
+
 params = {
     "model": "gpt-4o",
-    "messages": PROMPT_MESSAGES,
+    "messages": [
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": PROMPT_MESSAGE_2}
+    ],
     "max_tokens": 200,
 }
 

@@ -1,0 +1,34 @@
+[
+    {
+        "vid": "G60-kHBEeZA_60.0_210.0",
+        "query": "The weather map shows large snowfall in the weather patterns.",
+        "answer": [
+            0,
+            120
+        ]
+    },
+    {
+        "vid": "Ok-M_V_h-eY_210.0_360.0",
+        "query": "Kids are hanging off of a pole.",
+        "answer": [
+            608,
+            637
+        ]
+    },
+    {
+        "vid": "Ok-M_V_h-eY_360.0_510.0",
+        "query": "The view from the car window as it drives down the street.",
+        "answer": [
+            241,
+            301
+        ]
+    },
+    {
+        "vid": "WmId2ZP3h0c_60.0_210.0",
+        "query": "A group of girls and boys are dancing.",
+        "answer": [
+            150,
+            180
+        ]
+    }
+]

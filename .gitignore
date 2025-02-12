@@ -9,3 +9,6 @@ Charades/
 
 #Ignore charades video foler
 Charades_v1_480/
+
+#Ignore videos
+qvhighlight/filtered_videos/

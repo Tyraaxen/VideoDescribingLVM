@@ -1,11 +1,11 @@
 import json
 
 # Load the ground truth answers
-with open("/home/taxen/Desktop/MasterThesis/VideoDescribingLVM/Questions/test.json", "r") as f:
+with open("/home/taxen/VideoDescribingLVM/Questions/test.json", "r") as f:
     ground_truth = json.load(f)
 
 # Load the model's predictions
-with open("/home/taxen/Desktop/MasterThesis/VideoDescribingLVM/Questions/test_answers.json", "r") as f:
+with open("/home/taxen/VideoDescribingLVM/answers/gemini_answers.json", "r") as f:
     model_answers = json.load(f)
 
 # Convert ground truth to a dictionary for quick lookup

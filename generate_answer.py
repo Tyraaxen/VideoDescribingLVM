@@ -14,10 +14,21 @@ load_dotenv()
 
 client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
+#==============================================Questions=============================================
+event_segmentation = "/home/taxen/VideoDescribingLVM/qvhighlight/filtered_dataset.json"
+temporal_understanding = "/home/taxen/VideoDescribingLVM/Questions/test.json"
+
 #====================================================================================================
 # Step 1: Load the JSON file with questions
-with open("/home/taxen/Desktop/MasterThesis/VideoDescribingLVM/Questions/test.json", "r") as f:
+with open(temporal_understanding, "r") as f:
     questions_data = json.load(f)
+
+# for event segmentation
+def get_query_by_vid(video_id, dataset):
+    for item in dataset:
+        if item["vid"] == video_id:
+            return item["query"]  # Return the corresponding query
+    return None  # Return None if the video is not found
 
 # Step 2: Define a function to get the question for a specific video_id
 def get_question_by_video_id(video_id):
@@ -47,14 +58,27 @@ def extract_frames(video_path, fps=1):
         frame_count += 1
 
     video_id.release()
-    #print(len(base64Frames), "frames read.")
+    #print(frame_count, "frames read.")
+    print(len(base64Frames), "frames read.")
     return base64Frames
 
 def model_answers(question_text, video_id, video_path):
 
     Frames = extract_frames(video_path)
 
-    PROMPT_MESSAGE =  [f""" **Question:**
+    PROMPT_MESSAGE_2 = f"""this is the query {question_text}. Between which timestamps does this happen?
+                Respond in **valid JSON format**, following this exact structure: 
+
+                    [
+                        {{
+                            "vid": "{video_id}",
+                            "query": "{question_text}",
+                            "answer": [timestamp1:timestamp2]
+                        }}
+                    ]
+                """
+
+    PROMPT_MESSAGE = f""" **Question:**
                 {question_text} 
 
                 Respond in **valid JSON format**, following this exact structure:
@@ -68,13 +92,13 @@ def model_answers(question_text, video_id, video_path):
                     ]
 
                 """
-                , *map(lambda x: {"image": x, "resize": 768}, Frames),]
+                #, *map(lambda x: {"image": x, "resize": 768}, Frames),]
 
     params = {
         "model": "gpt-4o",
         "messages": [
-            {"role": "system", "content": "You are an AI assistant tasked with answering a multiple-choice question based on a set of video frames."},
-            {"role": "user", "content": PROMPT_MESSAGE}
+            {"role": "system", "content": "You are an AI assistant tasked with answering a question based on a set of video frames."},
+            {"role": "user", "content": PROMPT_MESSAGE_2}
         ],
         "max_tokens": 200,
     }
@@ -104,7 +128,7 @@ def model_answers(question_text, video_id, video_path):
 # ======================================================== Generate Questions for Videos ===========================================================
 def process_video(video_id):
     """Function to process each video and return structured results."""
-    video_path = f"/home/taxen/Downloads/Charades_v1_480/{video_id}.mp4"
+    video_path = f"/home/taxen/VideoDescribingLVM/Charades_v1_480/{video_id}.mp4"
     question_text = get_question_by_video_id(video_id)
 
     if question_text:
@@ -112,7 +136,7 @@ def process_video(video_id):
     return []  # Return an empty list if no question text is found
 
 # Prepare video IDs
-video_ids = [entry['video_id'] for entry in questions_data]
+video_ids = [entry['video_id'] for entry in questions_data[:100]]
 
 # Process all videos in parallel
 if __name__ == '__main__':
@@ -126,7 +150,7 @@ if __name__ == '__main__':
 
     # ====================================================================================================
     # Save to JSON File
-    output_path = "/home/taxen/Desktop/MasterThesis/VideoDescribingLVM/Questions/test_answers.json"
+    output_path = "/home/taxen/VideoDescribingLVM/answers/openai_answers.json"
     with open(output_path, "w") as out_file:
         json.dump(questions, out_file, indent=4)
 

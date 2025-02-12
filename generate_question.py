@@ -1,4 +1,3 @@
-'''This code is based on (basically copied from OpenAi cookbook: https://cookbook.openai.com/examples/gpt_with_vision_for_video_understanding)'''
 from IPython.display import display, Image, Audio
 from openai import OpenAI
 import os

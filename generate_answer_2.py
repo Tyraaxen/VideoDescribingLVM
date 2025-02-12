@@ -54,29 +54,32 @@ def extract_frames(video_path, fps=1):
     print(len(base64Frames), "frames read.")
     return base64Frames
 
-def model_answers(question_text, video_id, video_path):
+def model_answers(question_text, video_id, video_path, video_duration): #TODO: add video_duration to the rest of the code
 
     Frames = extract_frames(video_path)
 
-    PROMPT_MESSAGE = [f"""this is the query {question_text}. Between which timestamps does this happen?
-                Respond in **valid JSON format**, following this exact structure: 
+    PROMPT_MESSAGE = [f"""This is the query: "{question_text}". 
+                        Between which timestamps in the video does this event happen?
 
-                    [
-                        {{
-                            "vid": "{video_id}",
-                            "query": "{question_text}",
-                            "answer": [timestamp1,timestamp2]
-                        }}
-                    ]
+                        ### **Instructions:**
+                        - The video has a total duration of **{video_duration} seconds**.
+                        - You **must ensure** that the timestamps you provide are within **0 and {video_duration}**.
+                        - Respond in **valid JSON format**, following this exact structure:
 
-                The [timestamp1,timestamp2] should not be with "" and should represent how long in the 
-                video the query happens. You should not answer in relation to the time window mentioned in the "vid".
-                If the query happens 30 seconds into the video and ends at 120 seconds
-                into the video the answer should be:
-                        "answer": [
-                            30,
-                            120
+                        ```json
+                        [
+                            {{
+                                "vid": "{video_id}",
+                                "query": "{question_text}",
+                                "answer": [timestamp1, timestamp2]
+                            }}
                         ]
+
+                Do not use quotes ("") around the timestamps.
+                The timestamps should be in seconds and represent the relative position within the video.
+                If the query happens 30 seconds into the video and ends at 120 seconds, the correct response format is:
+                "answer": [30, 120]
+                Ensure that timestamp1 < timestamp2 and that both are within 0 and {video_duration}
                 """, *map(lambda x: {"image": x, "resize": 768}, Frames),]
 
     params = {

@@ -78,7 +78,7 @@ def model_answers(question_text, video_id, video_path):
                     ]
                 """
 
-    PROMPT_MESSAGE = f""" **Question:**
+    PROMPT_MESSAGE = f""" **Question:**model_output#
                 {question_text} 
 
                 Respond in **valid JSON format**, following this exact structure:

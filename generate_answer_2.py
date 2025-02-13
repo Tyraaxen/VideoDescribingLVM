@@ -14,10 +14,10 @@ load_dotenv()
 
 client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
-#==============================================Questions=============================================
+#==============================================Questions===================================================================
 event_segmentation = "/home/taxen/VideoDescribingLVM/qvhighlight/filtered_dataset.json"
 
-#====================================================================================================
+#==========================================================================================================================
 # Step 1: Load the JSON file with questions
 with open(event_segmentation, "r") as f:
     questions_data = json.load(f)
@@ -29,7 +29,13 @@ def get_query_by_vid(video_id, dataset):
             return item["query"]  # Return the corresponding query
     return None  # Return None if the video is not found
 
-#====================================================================================================
+def get_duration_by_vid(video_id, dataset):
+    for item in dataset:
+        if item["vid"] == video_id:
+            return item["duration"]  # Return the corresponding query
+    return None  # Return None if the video is not found
+
+#==========================================================================================================================
 
 def extract_frames(video_path, fps=1):
     #Extract frames and make into base64 format
@@ -62,7 +68,7 @@ def model_answers(question_text, video_id, video_path, video_duration): #TODO: a
                         Between which timestamps in the video does this event happen?
 
                         ### **Instructions:**
-                        - The video has a total duration of **{video_duration} seconds**.
+                        - The video has a total duration of **{video_duration} seconds** and is sampled at 1 frame per second.
                         - You **must ensure** that the timestamps you provide are within **0 and {video_duration}**.
                         - Respond in **valid JSON format**, following this exact structure:
 
@@ -80,7 +86,7 @@ def model_answers(question_text, video_id, video_path, video_duration): #TODO: a
                 If the query happens 30 seconds into the video and ends at 120 seconds, the correct response format is:
                 "answer": [30, 120]
                 Ensure that timestamp1 < timestamp2 and that both are within 0 and {video_duration}
-                """, *map(lambda x: {"image": x, "resize": 768}, Frames),]
+                """, *map(lambda x: {"image": x, "resize": 512}, Frames),] #reduced image size from 712
 
     params = {
         "model": "gpt-4o",
@@ -95,7 +101,7 @@ def model_answers(question_text, video_id, video_path, video_duration): #TODO: a
     model_output = result.choices[0].message.content
 
 
-    #======================================================== Create the json file ==================================================================
+    #====================================================== Create the json file ============================================================
 
     # Clean JSON output
     if model_output.startswith("```json"):
@@ -110,35 +116,37 @@ def model_answers(question_text, video_id, video_path, video_duration): #TODO: a
 
     except json.JSONDecodeError as e:
         print(f"Error decoding JSON for video: {e}")
+        print(model_output)
         return []
 
 
-# ======================================================== Generate Questions for Videos ===========================================================
+# ======================================================== Generate Questions for Videos =====================================================
 def process_video(video_id):
     """Function to process each video and return structured results."""
     #video_path = f"/home/taxen/VideoDescribingLVM/Charades_v1_480/{video_id}.mp4"
     video_path = f"/home/taxen/VideoDescribingLVM/qvhighlight/filtered_videos/{video_id}.mp4"
 
     question_text = get_query_by_vid(video_id, questions_data)
+    duration = get_duration_by_vid(video_id, questions_data)
 
     if question_text:
-        return model_answers(question_text, video_id, video_path)  # Expected to return a list of dicts
+        return model_answers(question_text, video_id, video_path, duration)  # Expected to return a list of dicts
     return []  # Return an empty list if no question text is found
 
 # Prepare video IDs
-video_ids = [entry['vid'] for entry in questions_data[:50]]
+video_ids = [entry['vid'] for entry in questions_data[:10]]
 
 # Process all videos in parallel
 if __name__ == '__main__':
     num_workers = 1#min(8, len(video_ids))  # Use optimal number of workers
-    #print("num_workers: ", 8) #cpu count =8
+    #print("num_workers: ", 8) # cpu count = 8
     with Pool(processes=num_workers) as pool:
         results = list(tqdm(pool.imap(process_video, video_ids), total=len(video_ids), desc="Processing videos", unit="video"))
 
     # Flatten the list of lists into a single list of dictionaries
     questions = [item for sublist in results for item in sublist]  
 
-    # ====================================================================================================
+    # ========================================================================================================================================
     # Save to JSON File
     output_path = "/home/taxen/VideoDescribingLVM/answers/openai_answers_es.json"
     with open(output_path, "w") as out_file:

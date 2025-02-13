@@ -3,280 +3,40 @@
         "vid": "G60-kHBEeZA_60.0_210.0",
         "query": "The weather map shows large snowfall in the weather patterns.",
         "answer": [
-            0,
-            240
-        ]
-    },
-    {
-        "vid": "Ok-M_V_h-eY_210.0_360.0",
-        "query": "Kids are hanging off of a pole.",
-        "answer": [
-            215,
-            220
+            30,
+            120
         ]
     },
     {
         "vid": "Ok-M_V_h-eY_360.0_510.0",
         "query": "The view from the car window as it drives down the street.",
         "answer": [
-            258,
-            295
+            105,
+            129
         ]
     },
     {
         "vid": "WmId2ZP3h0c_60.0_210.0",
         "query": "A group of girls and boys are dancing.",
         "answer": [
-            150,
-            180
+            90,
+            120
         ]
     },
     {
         "vid": "WmId2ZP3h0c_210.0_360.0",
         "query": "Students wearing gender colored red and blue uniforms are attending a class.",
         "answer": [
-            810,
-            830
-        ]
-    },
-    {
-        "vid": "q8YvpLSXQnk_360.0_510.0",
-        "query": "A lady capturing various attractive interior designs",
-        "answer": [
-            420,
-            480
-        ]
-    },
-    {
-        "vid": "xrT84MJxBhs_210.0_360.0",
-        "query": "Phone screen showing an ad.",
-        "answer": [
-            270,
-            310
-        ]
-    },
-    {
-        "vid": "xrT84MJxBhs_660.0_810.0",
-        "query": "A woman in white t-shirt is talking about products in front of the camera",
-        "answer": [
-            0,
-            55
-        ]
-    },
-    {
-        "vid": "8ySfrR3YQHM_510.0_660.0",
-        "query": "Girl looks at the water fountain before decided to drink from it.",
-        "answer": [
-            420,
-            460
-        ]
-    },
-    {
-        "vid": "sJ-KomL7DUo_360.0_510.0",
-        "query": "A stack of luggage is on the floor.",
-        "answer": [
-            632,
-            642
-        ]
-    },
-    {
-        "vid": "TUq8vM0pRO8_60.0_210.0",
-        "query": "A man in a blue sleeveless shirt is showing his pool area and gesturing.",
-        "answer": [
-            362,
-            400
-        ]
-    },
-    {
-        "vid": "S1Xq6MbAao0_210.0_360.0",
-        "query": "The end of the video telling viewers to sub.",
-        "answer": [
-            347,
-            360
-        ]
-    },
-    {
-        "vid": "Qdb0geNm7wc_210.0_360.0",
-        "query": "People dance and sing on a stage.",
-        "answer": [
-            100,
-            250
-        ]
-    },
-    {
-        "vid": "Qdb0geNm7wc_60.0_210.0",
-        "query": "Multiple kids are dancing in a empty gym room.",
-        "answer": [
-            645,
-            710
-        ]
-    },
-    {
-        "vid": "BHhHb0vuCgY_360.0_510.0",
-        "query": "Looking up at the decorated ceilings of a mosque.",
-        "answer": [
-            0,
-            20
-        ]
-    },
-    {
-        "vid": "kUA-SJ9U9cs_210.0_360.0",
-        "query": "Blonde woman walks down a road in a white circular hat.",
-        "answer": [
-            317,
-            360
-        ]
-    },
-    {
-        "vid": "ytSba7b-0Vo_60.0_210.0",
-        "query": "A mother is blowing up balloons for the kids.",
-        "answer": [
-            0,
-            60
-        ]
-    },
-    {
-        "vid": "_RDpKm1hruA_210.0_360.0",
-        "query": "Man in white hat is surrounded by birds at the beach.",
-        "answer": [
-            450,
-            600
-        ]
-    },
-    {
-        "vid": "6E__rgoxj4g_60.0_210.0",
-        "query": "An African American woman talking in sign language during a press conference",
-        "answer": [
-            90,
-            150
-        ]
-    },
-    {
-        "vid": "9JtIsmHSuH4_210.0_360.0",
-        "query": "Two teen girls walk down the street.",
-        "answer": [
-            690,
-            750
-        ]
-    },
-    {
-        "vid": "K4sJnzZLcfc_60.0_210.0",
-        "query": "Woman with red hair walks along a rural road.",
-        "answer": [
-            284,
-            305
-        ]
-    },
-    {
-        "vid": "Mzn43bxgmBo_210.0_360.0",
-        "query": "A girl in a black and white shirt eats something out of a bowl.",
-        "answer": [
-            0,
-            100
-        ]
-    },
-    {
-        "vid": "t_9gaLdfc_Y_660.0_810.0",
-        "query": "Red, white, and blue end of video telling the viewer to subscribe.",
-        "answer": [
-            780,
-            810
-        ]
-    },
-    {
-        "vid": "eSbPJx_eH8E_60.0_210.0",
-        "query": "Man stands under a awning alone.",
-        "answer": [
-            0,
-            30
-        ]
-    },
-    {
-        "vid": "eSbPJx_eH8E_360.0_510.0",
-        "query": "Asian man talks to a cop.",
-        "answer": [
-            210,
-            440
-        ]
-    },
-    {
-        "vid": "WGyD9NG47Rw_60.0_210.0",
-        "query": "A news broadcast talks to a Florida mayor during a 2020 hurricane",
-        "answer": [
             120,
-            150
+            135
         ]
     },
     {
-        "vid": "eYTTYnFgKQc_360.0_510.0",
-        "query": "A family eats dinner together.",
+        "vid": "hu5L0-CnuUw_360.0_510.0",
+        "query": "A spoon stirs the yellow curry in a pot.",
         "answer": [
-            550,
-            570
-        ]
-    },
-    {
-        "vid": "fqtHFwlPRCI_360.0_510.0",
-        "query": "Kid in blue top walks over a dead tree branch.",
-        "answer": [
-            240,
-            249
-        ]
-    },
-    {
-        "vid": "1crgYZDNnQc_510.0_660.0",
-        "query": "A woman is picking up a candle, lighting it and putting it in the corner.",
-        "answer": [
-            380,
-            430
-        ]
-    },
-    {
-        "vid": "Pkk_CsWb-PI_210.0_360.0",
-        "query": "A woman is demonstrating how to search for something online and the correct page.",
-        "answer": [
-            150,
-            240
-        ]
-    },
-    {
-        "vid": "Dn7gWOPeUu8_210.0_360.0",
-        "query": "Woman holds out a sandwich and eats it.",
-        "answer": [
-            363,
-            381
-        ]
-    },
-    {
-        "vid": "YNW1L-hQq1Q_360.0_510.0",
-        "query": "A man talks up close to the camera with his mask on.",
-        "answer": [
-            567,
-            647
-        ]
-    },
-    {
-        "vid": "SsjijAXVkBE_60.0_210.0",
-        "query": "A walking view of shops and a plane in a airport",
-        "answer": [
-            180,
-            300
-        ]
-    },
-    {
-        "vid": "2b9txcAt4e0_60.0_210.0",
-        "query": "A crowd of people is walking in mud.",
-        "answer": [
-            1500,
-            1680
-        ]
-    },
-    {
-        "vid": "2b9txcAt4e0_360.0_510.0",
-        "query": "Asian women wear traditional garb while holding onto yellow umbrellas.",
-        "answer": [
-            0,
-            20
+            48,
+            55
         ]
     }
 ]
